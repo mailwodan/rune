@@ -41,8 +41,15 @@
 
     <div ng-app="rune" ng-controller="runeCtrl" class="container">
 
-        <h1 class="destRune runefont_Big">{{sourceRune}}</h1>
-        <h1 class="destRune runefont_Big">{{destRunes}}</h1>
+        <div class="row">
+            <div class="col">
+                <canvas id="cnvs" width="400px" height="200px"></canvas>
+            </div>
+            <div class="col">
+                <h1 class="destRune runefont_Big">{{sourceRune}}</h1>
+                <h1 class="destRune runefont_Big">{{destRunes}}</h1>
+            </div>
+        </div>
 
         <div class="row">
             <div class="col" ng-repeat="x in runemap1">
@@ -82,27 +89,77 @@
 
 
     <script>
+
         var app = angular.module('rune', []);
 
         app.controller('runeCtrl', function ($scope) {
 
+            $scope.drawGrid = function () {
+                var canvas = document.getElementById('cnvs');
+                var ctx = canvas.getContext('2d');
+                ctx.strokeStyle = "grey";
+                ctx.lineWidth = 4; // толщина линии
+
+                ctx.moveTo(0, 2); //передвигаем перо
+                ctx.lineTo(300, 2); // Гебо
+                ctx.stroke();
+
+                ctx.moveTo(0, 100); //передвигаем перо
+                ctx.lineTo(300, 100); // Джера
+                ctx.stroke(); 
+
+                ctx.moveTo(0, 198); //передвигаем перо
+                ctx.lineTo(300, 198); // Хагаль
+                ctx.stroke();
+                
+                ctx.moveTo(0, 0); //передвигаем перо
+                ctx.lineTo(100, 200); // Наутиз
+                ctx.lineTo(200, 0); // Эйваз
+                ctx.lineTo(300, 200); // Иса
+                ctx.stroke();
+
+                ctx.moveTo(0, 200); //передвигаем перо
+                ctx.lineTo(100, 0); // Дагаз 
+                ctx.lineTo(200, 200); // Сол
+                ctx.lineTo(300, 0); // Ингуз
+                ctx.stroke();
+
+                //ctx.clearRect(0, 0, 400, 200);
+            };
+
             $scope.runemap1 = [
-                { name: "f", name0: "F", display: "Феху (f)", 
-                    res: "g i s", res0: "h n s" },
-                { name: "u", name0: "U", display: "Уруз (u)", 
-                    res: "g q h", res0: "g d h" },
-                { name: "x", name0: "X", display: "Терс (x)", 
-                    res: "j q s", res0: "j d s" },
-                { name: "a", name0: "A", display: "Ансуз (a)", 
-                    res: "g q y", res0: "h d y" },
-                { name: "r", name0: "R", display: "Райдо (r)", 
-                    res: "j q s y", res0: "j d s y" },
-                { name: "c", name0: "C", display: "Кано (c)", 
-                    res: "i s", res0: "n s" },
-                { name: "g", name0: "g", display: "Гебо (g)", 
-                    res: "s y", res0: "s y", isSuper: "true" },
-                { name: "v", name0: "V", display: "Вуньо (v)", 
-                    res: "g q i", res0: "h d n" }
+                {
+                    name: "f", name0: "F", display: "Феху (f)",
+                    res: "g i s", res0: "h n s"
+                },
+                {
+                    name: "u", name0: "U", display: "Уруз (u)",
+                    res: "g q h", res0: "g d h"
+                },
+                {
+                    name: "x", name0: "X", display: "Терс (x)",
+                    res: "j q s", res0: "j d s"
+                },
+                {
+                    name: "a", name0: "A", display: "Ансуз (a)",
+                    res: "g q y", res0: "h d y"
+                },
+                {
+                    name: "r", name0: "R", display: "Райдо (r)",
+                    res: "j q s y", res0: "j d s y"
+                },
+                {
+                    name: "c", name0: "C", display: "Кано (c)",
+                    res: "i s", res0: "n s"
+                },
+                {
+                    name: "g", name0: "g", display: "Гебо (g)",
+                    res: "s y", res0: "s y", isSuper: "true"
+                },
+                {
+                    name: "v", name0: "V", display: "Вуньо (v)",
+                    res: "g q i", res0: "h d n"
+                }
             ];
 
             $scope.runemap2 = [
@@ -117,14 +174,14 @@
             ];
 
             $scope.runemap3 = [
-                { name: "t", name0: "T", display: "Тейваз (t)", res: "", res0: "" },
-                { name: "b", name0: "B", display: "Беркана (b)", res: "", res0: "" },
-                { name: "e", name0: "E", display: "Эваз (e)", res: "", res0: "" },
-                { name: "m", name0: "M", display: "Маназ (m)", res: "", res0: "" },
-                { name: "l", name0: "L", display: "Лагуз (l)", res: "", res0: "" },
-                { name: "q", name0: "q", display: "Ингуз (q)", res: "", res0: "", isSuper: "true" },
-                { name: "d", name0: "d", display: "Дагаз (d)", res: "", res0: "", isSuper: "true" },
-                { name: "o", name0: "o", display: "Отал (o)", res: "", res0: "", isSuper: "true" }
+                { name: "t", name0: "T", display: "Тейваз (t)", res: "j q i", res0: "j d n" },
+                { name: "b", name0: "B", display: "Беркана (b)", res: "j q s y n", res0: "j i s y d" },
+                { name: "e", name0: "E", display: "Эваз (e)", res: "g n q i j", res0: "g h d n j" },
+                { name: "m", name0: "M", display: "Маназ (m)", res: "g h q i", res0: "g h d n" },
+                { name: "l", name0: "L", display: "Лагуз (l)", res: "g q", res0: "h d" },
+                { name: "q", name0: "q", display: "Ингуз (q)", res: "q s d i y n", res0: "q s d i y n", isSuper: "true" },
+                { name: "d", name0: "d", display: "Дагаз (d)", res: "g h y s", res0: "g h y s", isSuper: "true" },
+                { name: "o", name0: "O", display: "Отал (o)", res: "n y d s", res0: "q s i y" }
             ];
 
             $scope.textStyle = function (value) {
@@ -170,7 +227,7 @@
                 $scope.sourceRune = value;
                 $scope.destRunes = res;
 
-
+                $scope.drawGrid();
             };
 
         });
@@ -193,6 +250,12 @@
 
         .destRune {
             color: blue;
+        }
+
+        #cnvs {
+            width: 400px;
+            height: 200px;
+            background: url(setka.png);
         }
     </style>
 
