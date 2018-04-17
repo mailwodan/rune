@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +8,7 @@
 
     <!-- Font CSS -->
     <link rel="stylesheet" href="stylesheet.css" type="text/css" charset="utf-8" />
-        
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 
@@ -16,50 +17,139 @@
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
+
     <!-- Popper JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-    
+
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-
-	<style type="text/css">
-        body{
-            font-family: 'elder_futharkregular';
-        }
-    </style>
-
-        
     <title>Runes Map</title>
 
 </head>
 
 <body>
 
-    <button type="button" class="btn btn-success">Success</button>
-
-<div ng-app="rune" ng-controller="runeCtrl" class="container-fluid">
- 
-    <p>Input something in the input box:</p>
-    <p>Name : <input type="text" ng-model="name" placeholder="Enter name here"></p>
-    <h1>Hello {{name}}</h1>
-        
-    <h1>{{carname}}</h1>
-
-</div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Runes Map</a>
+            </div>
+        </div>
+    </nav>
 
 
+    <div ng-app="rune" ng-controller="runeCtrl" class="container">
 
-<script>
+        <div class="row">
+            <div class="col" ng-repeat="x in runemap1">
+                <H5 ng-style="textStyle({{x.isSuper}})">{{ x.display }}</H5>
+                <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
+                <button type="button" class="btn btn-success runefont_Big" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col" ng-repeat="x in runemap2">
+                <H5 ng-style="textStyle({{x.isSuper}})">{{ x.display }}</H5>
+                <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
+                <button type="button" class="btn btn-success runefont_Big" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col" ng-repeat="x in runemap3">
+                <H5 ng-style="textStyle({{x.isSuper}})">{{ x.display }}</H5>
+                <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
+                <button type="button" class="btn btn-success runefont_Big" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
+            </div>
+        </div>
+
+        <p>Name :
+            <input type="text" ng-model="name" placeholder="Enter name here">
+        </p>
+        <h1 class="runefont">Hello {{name}}</h1>
+
+        <div ng-repeat="x in runemap">
+            <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
+        </div>
+
+    </div>
+
+
+
+    <script>
         var app = angular.module('rune', []);
-        
-        app.controller('runeCtrl', function($scope) {
-            $scope.carname = "Volvo";
+
+        app.controller('runeCtrl', function ($scope) {
+
+            $scope.runemap1 = [
+                { name: "f", name0: "F", display: "Феху (f)" },
+                { name: "u", name0: "U", display: "Уруз (u)" },
+                { name: "x", name0: "X", display: "Терс (x)" },
+                { name: "a", name0: "A", display: "Ансуз (a)" },
+                { name: "r", name0: "R", display: "Райдо (r)" },
+                { name: "c", name0: "C", display: "Кано (c)" },
+                { name: "g", name0: "g", display: "Гебо (g)", isSuper: "true" },
+                { name: "v", name0: "V", display: "Вуньо (v)" }
+            ];
+
+            $scope.runemap2 = [
+                { name: "h", name0: "h", display: "Хагаль (h)", isSuper: "true" },
+                { name: "n", name0: "n", display: "Наутиз (n)", isSuper: "true" },
+                { name: "i", name0: "i", display: "Иса (i)", isSuper: "true" },
+                { name: "j", name0: "j", display: "Джера (j)", isSuper: "true" },
+                { name: "y", name0: "y", display: "Эйваз (y)", isSuper: "true" },
+                { name: "p", name0: "P", display: "Перт (p)" },
+                { name: "z", name0: "Z", display: "Альгиз (z)" },
+                { name: "s", name0: "s", display: "Сол (s)", isSuper: "true" }
+            ];
+
+            $scope.runemap3 = [
+                { name: "t", name0: "T", display: "Тейваз (t)" },
+                { name: "b", name0: "B", display: "Беркана (b)" },
+                { name: "e", name0: "E", display: "Эваз (e)" },
+                { name: "m", name0: "M", display: "Маназ (m)" },
+                { name: "l", name0: "L", display: "Лагуз (l)" },
+                { name: "q", name0: "q", display: "Ингуз (q)", isSuper: "true" },
+                { name: "d", name0: "d", display: "Дагаз (d)", isSuper: "true" },
+                { name: "o", name0: "o", display: "Отал (o)", isSuper: "true" }
+            ];
+
+            $scope.textStyle = function (value) {
+                if (value) {
+                    return {
+                        "color": "blue"
+                    }
+                }
+
+                $scope.incomplete = false;
+                if ($scope.edit && (!$scope.fName.length ||
+                    !$scope.lName.length ||
+                    !$scope.passw1.length || !$scope.passw2.length)) {
+                    $scope.incomplete = true;
+                }
+            };
+
         });
-</script>
+    </script>
 
 
+    <style type="text/css">
+        .runefont {
+            font-family: 'elder_futharkregular';
+        }
+
+        .runefont_Big {
+            font-family: 'elder_futharkregular';
+            font-size: xx-large;
+        }
+
+        .row {
+            margin-top: 30px;
+        }
+    </style>
 
 </body>
+
 </html>
