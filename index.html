@@ -41,27 +41,30 @@
 
     <div ng-app="rune" ng-controller="runeCtrl" class="container">
 
+        <h1 class="destRune runefont_Big">{{sourceRune}}</h1>
+        <h1 class="destRune runefont_Big">{{destRunes}}</h1>
+
         <div class="row">
             <div class="col" ng-repeat="x in runemap1">
                 <H5 ng-style="textStyle({{x.isSuper}})">{{ x.display }}</H5>
-                <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
-                <button type="button" class="btn btn-success runefont_Big" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
+                <button type="button" class="btn btn-info runefont_Big" ng-click="setDestRunes(x.name)">{{ x.name }}</button>
+                <button type="button" class="btn btn-info runefont_Big" ng-click="setDestRunes(x.name0)" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
             </div>
         </div>
 
         <div class="row">
             <div class="col" ng-repeat="x in runemap2">
                 <H5 ng-style="textStyle({{x.isSuper}})">{{ x.display }}</H5>
-                <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
-                <button type="button" class="btn btn-success runefont_Big" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
+                <button type="button" class="btn btn-info runefont_Big" ng-click="setDestRunes(x.name)">{{ x.name }}</button>
+                <button type="button" class="btn btn-info runefont_Big" ng-click="setDestRunes(x.name0)" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
             </div>
         </div>
 
         <div class="row">
             <div class="col" ng-repeat="x in runemap3">
                 <H5 ng-style="textStyle({{x.isSuper}})">{{ x.display }}</H5>
-                <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
-                <button type="button" class="btn btn-success runefont_Big" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
+                <button type="button" class="btn btn-info runefont_Big" ng-click="setDestRunes(x.name)">{{ x.name }}</button>
+                <button type="button" class="btn btn-info runefont_Big" ng-click="setDestRunes(x.name0)" ng-hide="{{x.isSuper}}">{{ x.name0 }}</button>
             </div>
         </div>
 
@@ -84,36 +87,44 @@
         app.controller('runeCtrl', function ($scope) {
 
             $scope.runemap1 = [
-                { name: "f", name0: "F", display: "Феху (f)" },
-                { name: "u", name0: "U", display: "Уруз (u)" },
-                { name: "x", name0: "X", display: "Терс (x)" },
-                { name: "a", name0: "A", display: "Ансуз (a)" },
-                { name: "r", name0: "R", display: "Райдо (r)" },
-                { name: "c", name0: "C", display: "Кано (c)" },
-                { name: "g", name0: "g", display: "Гебо (g)", isSuper: "true" },
-                { name: "v", name0: "V", display: "Вуньо (v)" }
+                { name: "f", name0: "F", display: "Феху (f)", 
+                    res: "g i s", res0: "h n s" },
+                { name: "u", name0: "U", display: "Уруз (u)", 
+                    res: "g q h", res0: "g d h" },
+                { name: "x", name0: "X", display: "Терс (x)", 
+                    res: "j q s", res0: "j d s" },
+                { name: "a", name0: "A", display: "Ансуз (a)", 
+                    res: "g q y", res0: "h d y" },
+                { name: "r", name0: "R", display: "Райдо (r)", 
+                    res: "j q s y", res0: "j d s y" },
+                { name: "c", name0: "C", display: "Кано (c)", 
+                    res: "i s", res0: "n s" },
+                { name: "g", name0: "g", display: "Гебо (g)", 
+                    res: "s y", res0: "s y", isSuper: "true" },
+                { name: "v", name0: "V", display: "Вуньо (v)", 
+                    res: "g q i", res0: "h d n" }
             ];
 
             $scope.runemap2 = [
-                { name: "h", name0: "h", display: "Хагаль (h)", isSuper: "true" },
-                { name: "n", name0: "n", display: "Наутиз (n)", isSuper: "true" },
-                { name: "i", name0: "i", display: "Иса (i)", isSuper: "true" },
-                { name: "j", name0: "j", display: "Джера (j)", isSuper: "true" },
-                { name: "y", name0: "y", display: "Эйваз (y)", isSuper: "true" },
-                { name: "p", name0: "P", display: "Перт (p)" },
-                { name: "z", name0: "Z", display: "Альгиз (z)" },
-                { name: "s", name0: "s", display: "Сол (s)", isSuper: "true" }
+                { name: "h", name0: "h", display: "Хагаль (h)", res: "g y h", res0: "g y h", isSuper: "true" },
+                { name: "n", name0: "n", display: "Наутиз (n)", res: "j y", res0: "j y", isSuper: "true" },
+                { name: "i", name0: "i", display: "Иса (i)", res: "j", res0: "j", isSuper: "true" },
+                { name: "j", name0: "j", display: "Джера (j)", res: "i y n", res0: "i y n", isSuper: "true" },
+                { name: "y", name0: "y", display: "Эйваз (y)", res: "j q d", res0: "j q d", isSuper: "true" },
+                { name: "p", name0: "P", display: "Перт (p)", res: "g q i n d", res0: "h q i n d" },
+                { name: "z", name0: "Z", display: "Альгиз (z)", res: "j y s", res0: "j y s" },
+                { name: "s", name0: "s", display: "Сол (s)", res: "g s h", res0: "g s h", isSuper: "true" }
             ];
 
             $scope.runemap3 = [
-                { name: "t", name0: "T", display: "Тейваз (t)" },
-                { name: "b", name0: "B", display: "Беркана (b)" },
-                { name: "e", name0: "E", display: "Эваз (e)" },
-                { name: "m", name0: "M", display: "Маназ (m)" },
-                { name: "l", name0: "L", display: "Лагуз (l)" },
-                { name: "q", name0: "q", display: "Ингуз (q)", isSuper: "true" },
-                { name: "d", name0: "d", display: "Дагаз (d)", isSuper: "true" },
-                { name: "o", name0: "o", display: "Отал (o)", isSuper: "true" }
+                { name: "t", name0: "T", display: "Тейваз (t)", res: "", res0: "" },
+                { name: "b", name0: "B", display: "Беркана (b)", res: "", res0: "" },
+                { name: "e", name0: "E", display: "Эваз (e)", res: "", res0: "" },
+                { name: "m", name0: "M", display: "Маназ (m)", res: "", res0: "" },
+                { name: "l", name0: "L", display: "Лагуз (l)", res: "", res0: "" },
+                { name: "q", name0: "q", display: "Ингуз (q)", res: "", res0: "", isSuper: "true" },
+                { name: "d", name0: "d", display: "Дагаз (d)", res: "", res0: "", isSuper: "true" },
+                { name: "o", name0: "o", display: "Отал (o)", res: "", res0: "", isSuper: "true" }
             ];
 
             $scope.textStyle = function (value) {
@@ -122,13 +133,44 @@
                         "color": "blue"
                     }
                 }
+            };
 
-                $scope.incomplete = false;
-                if ($scope.edit && (!$scope.fName.length ||
-                    !$scope.lName.length ||
-                    !$scope.passw1.length || !$scope.passw2.length)) {
-                    $scope.incomplete = true;
+            $scope.getDestRunes = function (array, value) {
+
+                var fLen, i, res;
+
+                fLen = array.length;
+
+                res = "";
+
+                for (i = 0; i < fLen; i++) {
+                    if (array[i].name == value) {
+                        res = array[i].res;
+                    } else if (array[i].name0 == value) {
+                        res = array[i].res0;
+                    }
                 }
+
+                return res;
+
+            };
+
+            $scope.setDestRunes = function (value) {
+
+                var res;
+
+                res = $scope.getDestRunes($scope.runemap1, value);
+                if (!res.length) {
+                    res = $scope.getDestRunes($scope.runemap2, value);
+                    if (!res.length) {
+                        res = $scope.getDestRunes($scope.runemap3, value);
+                    }
+                }
+
+                $scope.sourceRune = value;
+                $scope.destRunes = res;
+
+
             };
 
         });
@@ -147,6 +189,10 @@
 
         .row {
             margin-top: 30px;
+        }
+
+        .destRune {
+            color: blue;
         }
     </style>
 
