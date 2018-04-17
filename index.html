@@ -106,12 +106,12 @@
 
                 ctx.moveTo(0, 100); //передвигаем перо
                 ctx.lineTo(300, 100); // Джера
-                ctx.stroke(); 
+                ctx.stroke();
 
                 ctx.moveTo(0, 198); //передвигаем перо
                 ctx.lineTo(300, 198); // Хагаль
                 ctx.stroke();
-                
+
                 ctx.moveTo(0, 0); //передвигаем перо
                 ctx.lineTo(100, 200); // Наутиз
                 ctx.lineTo(200, 0); // Эйваз
@@ -227,7 +227,26 @@
                 $scope.sourceRune = value;
                 $scope.destRunes = res;
 
-                $scope.drawGrid();
+                //$scope.drawGrid();
+                $scope.drawRune(res);
+            };
+
+            $scope.drawRune = function (value) {
+
+                var i;
+                for (i = 0; i < value.length; i++) {
+                    if (value[i] != "") {
+                        $scope.drawRuneLine(value[i]);
+                    }
+                }
+            };
+
+            $scope.drawRuneLine = function (value) {
+
+                var i;
+                for (i = 0; i < value.length; i++) {
+                    value[i]
+                }
             };
 
         });
