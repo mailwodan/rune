@@ -94,10 +94,12 @@
 
         app.controller('runeCtrl', function ($scope) {
 
+            var canvas = document.getElementById('cnvs');
+            var ctx = canvas.getContext('2d');
+
             $scope.drawGrid = function () {
-                var canvas = document.getElementById('cnvs');
-                var ctx = canvas.getContext('2d');
                 ctx.clearRect(0, 0, 400, 200);
+                ctx.beginPath();
                 ctx.strokeStyle = "grey";
                 ctx.lineWidth = 4; // толщина линии
 
@@ -125,7 +127,6 @@
                 ctx.lineTo(300, 0); // Ингуз
                 ctx.stroke();
 
-                //ctx.clearRect(0, 0, 400, 200);
             };
 
             $scope.runemap1 = [
@@ -151,7 +152,7 @@
                 },
                 {
                     name: "c", name0: "C", display: "Кано (c)",
-                    res: "i s", res0: "n s"
+                    res: "i y", res0: "n y"
                 },
                 {
                     name: "g", name0: "g", display: "Гебо (g)",
@@ -164,25 +165,78 @@
             ];
 
             $scope.runemap2 = [
-                { name: "h", name0: "h", display: "Хагаль (h)", res: "g y h", res0: "g y h", isSuper: "true" },
-                { name: "n", name0: "n", display: "Наутиз (n)", res: "j y", res0: "j y", isSuper: "true" },
-                { name: "i", name0: "i", display: "Иса (i)", res: "j", res0: "j", isSuper: "true" },
-                { name: "j", name0: "j", display: "Джера (j)", res: "i y n", res0: "i y n", isSuper: "true" },
-                { name: "y", name0: "y", display: "Эйваз (y)", res: "j q d", res0: "j q d", isSuper: "true" },
-                { name: "p", name0: "P", display: "Перт (p)", res: "g q i n d", res0: "h q i n d" },
-                { name: "z", name0: "Z", display: "Альгиз (z)", res: "j y s", res0: "j y s" },
-                { name: "s", name0: "s", display: "Сол (s)", res: "g s h", res0: "g s h", isSuper: "true" }
+                {
+                    name: "h", name0: "h", display: "Хагаль (h)",
+                    res: "g y h", res0: "g y h", isSuper: "true"
+                },
+                {
+                    name: "n", name0: "n", display: "Наутиз (n)",
+                    res: "j y", res0: "j y", isSuper: "true"
+                },
+                {
+                    name: "i", name0: "i", display: "Иса (i)",
+                    res: "j", res0: "j", isSuper: "true"
+                },
+                {
+                    name: "j", name0: "j", display: "Джера (j)",
+                    res: "i y n", res0: "i y n", isSuper: "true"
+                },
+                {
+                    name: "y", name0: "y", display: "Эйваз (y)",
+                    res: "j q d", res0: "j q d", isSuper: "true"
+                },
+                {
+                    // Мой вариант
+                    // name: "p", name0: "P", display: "Перт (p)",
+                    // res: "g q i n d", res0: "h q i n d"
+
+                    // Математики
+                    name: "p", name0: "P", display: "Перт (p)",
+                    res: "q g s i y", res0: "d s y h n"
+                },
+                {
+                    name: "z", name0: "Z", display: "Альгиз (z)",
+                    res: "j y s", res0: "j y s"
+                },
+                {
+                    name: "s", name0: "s", display: "Сол (s)",
+                    res: "g s h", res0: "g s h", isSuper: "true"
+                }
             ];
 
             $scope.runemap3 = [
-                { name: "t", name0: "T", display: "Тейваз (t)", res: "j q i", res0: "j d n" },
-                { name: "b", name0: "B", display: "Беркана (b)", res: "j q s y n", res0: "j i s y d" },
-                { name: "e", name0: "E", display: "Эваз (e)", res: "g n q i j", res0: "g h d n j" },
-                { name: "m", name0: "M", display: "Маназ (m)", res: "g h q i", res0: "g h d n" },
-                { name: "l", name0: "L", display: "Лагуз (l)", res: "g q", res0: "h d" },
-                { name: "q", name0: "q", display: "Ингуз (q)", res: "q s d i y n", res0: "q s d i y n", isSuper: "true" },
-                { name: "d", name0: "d", display: "Дагаз (d)", res: "g h y s", res0: "g h y s", isSuper: "true" },
-                { name: "o", name0: "O", display: "Отал (o)", res: "n y d s", res0: "q s i y" }
+                {
+                    name: "t", name0: "T", display: "Тейваз (t)",
+                    res: "j q i", res0: "j d n"
+                },
+                {
+                    name: "b", name0: "B", display: "Беркана (b)",
+                    res: "j q s y n", res0: "j i s y d"
+                },
+                {
+                    name: "e", name0: "E", display: "Эваз (e)",
+                    res: "g h q i j", res0: "g h d n j"
+                },
+                {
+                    name: "m", name0: "M", display: "Маназ (m)",
+                    res: "g h q i", res0: "g h d n"
+                },
+                {
+                    name: "l", name0: "L", display: "Лагуз (l)",
+                    res: "g q", res0: "h d"
+                },
+                {
+                    name: "q", name0: "q", display: "Ингуз (q)",
+                    res: "q s d i y n", res0: "q s d i y n", isSuper: "true"
+                },
+                {
+                    name: "d", name0: "d", display: "Дагаз (d)",
+                    res: "g h y s", res0: "g h y s", isSuper: "true"
+                },
+                {
+                    name: "o", name0: "O", display: "Отал (o)",
+                    res: "n y d s", res0: "q s i y"
+                }
             ];
 
             $scope.textStyle = function (value) {
@@ -196,11 +250,8 @@
             $scope.getDestRunes = function (array, value) {
 
                 var fLen, i, res;
-
                 fLen = array.length;
-
                 res = "";
-
                 for (i = 0; i < fLen; i++) {
                     if (array[i].name == value) {
                         res = array[i].res;
@@ -208,15 +259,12 @@
                         res = array[i].res0;
                     }
                 }
-
                 return res;
-
             };
 
             $scope.setDestRunes = function (value) {
 
                 var res;
-
                 res = $scope.getDestRunes($scope.runemap1, value);
                 if (!res.length) {
                     res = $scope.getDestRunes($scope.runemap2, value);
@@ -235,10 +283,10 @@
             $scope.drawRune = function (value) {
 
                 var i;
-                var canvas = document.getElementById('cnvs');
-                var ctx = canvas.getContext('2d');
-
                 ctx.clearRect(0, 0, 400, 200);
+                ctx.beginPath();
+                ctx.strokeStyle = "red";
+                ctx.lineWidth = 4; // толщина линии
 
                 for (i = 0; i < value.length; i++) {
                     if (value[i] != "") {
@@ -248,11 +296,6 @@
             };
 
             $scope.drawRuneLine = function (value) {
-
-                var canvas = document.getElementById('cnvs');
-                var ctx = canvas.getContext('2d');
-                ctx.strokeStyle = "red";
-                ctx.lineWidth = 4; // толщина линии
 
                 if (value == "g") {
                     ctx.moveTo(0, 2); //передвигаем перо
@@ -293,7 +336,6 @@
                     ctx.stroke();
                 }
 
-                //ctx.clearRect(0, 0, 400, 200);
             };
 
         });
