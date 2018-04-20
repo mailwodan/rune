@@ -80,9 +80,9 @@
                 <div ng-repeat="x in sourceList">
                     <input type="text" ng-model="x.name" placeholder="Source runes">
                     <button type="button" class="btn btn-success" ng-click="sourceListAdd(x)">Add</button>
-                    <button type="button" class="btn btn-success" ng-click="analize(x.name)">Analize</button>
+                    <button type="button" class="btn btn-success" ng-click="analize(x)">Analize</button>
                     <h2 class="runefont">{{x.name}}</h2>
-                    <h1 class="destRune runefont_Big">{{x.name}}</h1>
+                    <h1 class="destRune runefont_Big">{{x.analize}}</h1>
                 </div>
             </div>
             <div class="col">
@@ -381,6 +381,48 @@
                 }
 
                 $scope.nameDivided = res;
+            };
+
+            $scope.isFindRune = function (runeValue, sourceValue) {
+                var fLen, i, enterCount, resCount, pos;
+
+                fLen = runeValue.length;
+                enterCount = 0;
+                resCount = 0;
+                for (i = 0; i < fLen; i++) {
+                    if (runeValue[i] != " ") {
+                        enterCount += 1;
+                        pos = sourceValue.name.search(runeValue[i]);
+                        if (pos > -1) {
+                            resCount += 1;
+                        }
+                    }
+                }
+                return (enterCount == resCount);
+
+            }
+
+            $scope.analize = function (value) {
+
+                var fLen, i;
+                var res = "";
+                var runemapAll = $scope.runemap1.concat($scope.runemap2, $scope.runemap3);
+
+                fLen = runemapAll.length;
+                enterCount = 0;
+                resCount = 0;
+                for (i = 0; i < fLen; i++) {
+                    if ($scope.isFindRune(runemapAll[i].res, value)) {
+                        res += runemapAll[i].name + "( " + runemapAll[i].res + " ) ,   ";
+                    }
+                    if (!runemapAll[i].isSuper) {
+                        if ($scope.isFindRune(runemapAll[i].res0, value)) {
+                            res += runemapAll[i].name0 + "( " + runemapAll[i].res0 + " ) ,   ";
+                        }
+                    }
+                }
+
+                value.analize = res;
             };
 
 
