@@ -79,8 +79,9 @@
             <div class="col">
                 <div ng-repeat="x in sourceList">
                     <input type="text" ng-model="x.name" placeholder="Source runes">
-                    <button type="button" class="btn btn-success" ng-click="sourceListAdd(x)">Add</button>
                     <button type="button" class="btn btn-success" ng-click="analize(x)">Analize</button>
+                    <button type="button" class="btn btn-success" ng-click="sourceListAdd(x)">Add</button>
+                    <button type="button" class="btn btn-success" ng-click="sourceListDelete(x)">Delete</button>
                     <h2 class="runefont">{{x.name}}</h2>
                     <h1 class="destRune runefont_Big">{{x.analize}}</h1>
                 </div>
@@ -89,7 +90,7 @@
                 <input type="text" ng-model="name" placeholder="Dest runes">
                 <button type="button" class="btn btn-success" ng-click="divide(name)">Divide</button>
                 <h2 class="runefont">{{name}}</h2>
-                <h1 class="destRune runefont_Big">{{nameDivided}}</h1>
+                <h1 class="destRuneGreen runefont_Big">{{nameDivided}}</h1>
             </div>
         </div>
 
@@ -364,6 +365,12 @@
                 });
             };
 
+            $scope.sourceListDelete = function (v) {
+                //                $scope.sourceList.remove(v);
+                $scope.sourceList.splice($scope.sourceList.indexOf(v), 1);
+
+            };
+
             $scope.divide = function (v) {
 
                 var fLen, i, res;
@@ -446,6 +453,10 @@
 
         .destRune {
             color: blue;
+        }
+
+        .destRuneGreen {
+            color: green;
         }
 
         #cnvs {
