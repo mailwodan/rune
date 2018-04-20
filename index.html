@@ -87,10 +87,14 @@
                 </div>
             </div>
             <div class="col">
-                <input type="text" ng-model="name" placeholder="Dest runes">
-                <button type="button" class="btn btn-success" ng-click="divide(name)">Divide</button>
-                <h2 class="runefont">{{name}}</h2>
-                <h1 class="destRuneGreen runefont_Big">{{nameDivided}}</h1>
+                <div ng-repeat="x in sourceDivide">
+                    <input type="text" ng-model="x.name" placeholder="Dest runes">
+                    <button type="button" class="btn btn-success" ng-click="divide(x)">Divide</button>
+                    <button type="button" class="btn btn-success" ng-click="sourceDivideAdd(x)">Add</button>
+                    <button type="button" class="btn btn-success" ng-click="sourceDivideDelete(x)">Delete</button>
+                    <h2 class="runefont">{{x.name}}</h2>
+                    <h1 class="destRuneGreen runefont_Big">{{x.nameDivided}}</h1>
+                </div>
             </div>
         </div>
 
@@ -366,28 +370,42 @@
             };
 
             $scope.sourceListDelete = function (v) {
-                //                $scope.sourceList.remove(v);
                 $scope.sourceList.splice($scope.sourceList.indexOf(v), 1);
+            };
 
+            $scope.sourceDivide = [
+                {
+                    name: "", nameDivided: ""
+                },
+            ];
+
+            $scope.sourceDivideAdd = function (v) {
+                $scope.sourceDivide.push({
+                    name: v.name, nameDivided: v.nameDivided
+                });
+            };
+
+            $scope.sourceDivideDelete = function (v) {
+                $scope.sourceDivide.splice($scope.sourceDivide.indexOf(v), 1);
             };
 
             $scope.divide = function (v) {
 
                 var fLen, i, res;
-                fLen = v.length;
+                fLen = v.name.length;
                 res = "";
                 rune1 = "";
 
                 for (i = 0; i < fLen; i++) {
-                    if (v[i] != " ") {
-                        rune1 = $scope.getRune(v[i]);
+                    if (v.name[i] != " ") {
+                        rune1 = $scope.getRune(v.name[i]);
                         res = res + " " + rune1 + " ,";
                     } else {
                         res = res + " ";
                     }
                 }
 
-                $scope.nameDivided = res;
+                v.nameDivided = res;
             };
 
             $scope.isFindRune = function (runeValue, sourceValue) {
