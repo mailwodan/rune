@@ -75,13 +75,22 @@
             </div>
         </div>
 
-        <p>Name :
-            <input type="text" ng-model="name" placeholder="Enter name here">
-        </p>
-        <h1 class="runefont">Hello {{name}}</h1>
-
-        <div ng-repeat="x in runemap">
-            <button type="button" class="btn btn-success runefont_Big">{{ x.name }}</button>
+        <div class="row">
+            <div class="col">
+                <div ng-repeat="x in sourceList">
+                    <input type="text" ng-model="x.name" placeholder="Source runes">
+                    <button type="button" class="btn btn-success" ng-click="sourceListAdd(x)">Add</button>
+                    <button type="button" class="btn btn-success" ng-click="analize(x.name)">Analize</button>
+                    <h2 class="runefont">{{x.name}}</h2>
+                    <h1 class="destRune runefont_Big">{{x.name}}</h1>
+                </div>
+            </div>
+            <div class="col">
+                <input type="text" ng-model="name" placeholder="Dest runes">
+                <button type="button" class="btn btn-success" ng-click="divide(name)">Divide</button>
+                <h2 class="runefont">{{name}}</h2>
+                <h1 class="destRune runefont_Big">{{nameDivided}}</h1>
+            </div>
         </div>
 
     </div>
@@ -262,7 +271,7 @@
                 return res;
             };
 
-            $scope.setDestRunes = function (value) {
+            $scope.getRune = function (value) {
 
                 var res;
                 res = $scope.getDestRunes($scope.runemap1, value);
@@ -272,12 +281,17 @@
                         res = $scope.getDestRunes($scope.runemap3, value);
                     }
                 }
+                return res;
+            };
+
+            $scope.setDestRunes = function (value) {
+
 
                 $scope.sourceRune = value;
-                $scope.destRunes = res;
+                $scope.destRunes = $scope.getRune(value);
 
-                $scope.drawGrid();
-                $scope.drawRune(res);
+                //$scope.drawGrid();
+                $scope.drawRune($scope.destRunes);
             };
 
             $scope.drawRune = function (value) {
@@ -337,6 +351,38 @@
                 }
 
             };
+
+            $scope.sourceList = [
+                {
+                    name: "", analize: ""
+                },
+            ];
+
+            $scope.sourceListAdd = function (v) {
+                $scope.sourceList.push({
+                    name: v.name, analize: v.analize
+                });
+            };
+
+            $scope.divide = function (v) {
+
+                var fLen, i, res;
+                fLen = v.length;
+                res = "";
+                rune1 = "";
+
+                for (i = 0; i < fLen; i++) {
+                    if (v[i] != " ") {
+                        rune1 = $scope.getRune(v[i]);
+                        res = res + " " + rune1 + " ,";
+                    } else {
+                        res = res + " ";
+                    }
+                }
+
+                $scope.nameDivided = res;
+            };
+
 
         });
     </script>
